@@ -233,28 +233,15 @@ ULListStr::ULListStr (const ULListStr& other){
 }
 
 std::string & ULListStr::operator[] (size_t loc){
-  //if it doesn't exist, return NULL
-  if(this->head_ == NULL) return NULL;
-  //if loc is out of range return NULL
-  if(loc < 0 || loc >= this->size()) return NULL;
-  //Grab the node and the num of elements in the node
-  Item* node = this->head_;
-  size_t numItems = node->last - node->first;
-  //cycle through the nodes until loc is within the numItems in node
-  while(loc >= numItems){
-    loc -= numItems;
-    node = node->next;
-    numItems = node->last - node->first;
-  }
-  //loc is now within the node
-  return node->val[node->first + loc];
+  return this->get(loc);
 }
 
 std::string const & ULListStr::operator[] (size_t loc) const{
+  /*
   //if it doesn't exist, return NULL
-  if(this->head_ == NULL) return NULL;
+  if(this->head_ == NULL) return "";
   //if loc is out of range return NULL
-  if(loc < 0 || loc >= this->size()) return NULL;
+  if(loc < 0 || loc >= this->size()) return "";
   //Grab the node and the num of elements in the node
   Item* node = this->head_;
   size_t numItems = node->last - node->first;
@@ -265,12 +252,22 @@ std::string const & ULListStr::operator[] (size_t loc) const{
     numItems = node->last - node->first;
   }
   //loc is now within the node
-  return node->val[node->first + loc];
+  return &(node->val[node->first + loc]);
+  */
+  return this->get(loc);
 }
 
 ULListStr& ULListStr::operator= (const ULListStr& other){
-  ULListStr* temp = new ULListStr(other);
-  return *temp;
+  //check if other is the same as this
+  if(this != &other){
+    //if it isn't delete data of current ULListStr
+    this->clear();
+    //copy data
+    this->head_ = other.head_;
+    this->tail_ = other.tail_;
+    this->size_ = other.size_;
+  }
+  return *this;
 }
 
 void ULListStr::appendContents(const ULListStr& other){
@@ -290,4 +287,37 @@ void ULListStr::appendContents(const ULListStr& other){
       this->push_back(node->val[index++]);
     }
   }
+}
+
+ULListStr ULListStr::operator+ (const ULListStr& other) const{
+  ULListStr ret;
+
+  //copy the contents of this
+  Item* t_node = this->head_;
+  size_t index = t_node->first;
+  while(t_node != NULL){
+    ret.push_back(t_node->val[index++]);
+    if(index == t_node->last){
+      if(t_node->next == NULL) break;
+      t_node = t_node->next;
+      index = t_node->first;
+    }
+  }
+  //copy the contents of other
+  Item* o_node = other.head_;
+  size_t o_index = o_node->first;
+  while(o_node != NULL){
+    ret.push_back(o_node->val[o_index++]);
+    if(o_index == o_node->last){
+      if(o_node->next == NULL) break;
+      o_node = o_node->next;
+      o_index = o_node->first;
+    }
+  }
+  return ret;
+}
+
+ULListStr& ULListStr::operator-= (size_t num){
+  for(size_t i = 0;i<num;i++) this->pop_back();
+  return *this;
 }
