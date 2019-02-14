@@ -261,7 +261,7 @@ ULListStr& ULListStr::operator= (const ULListStr& other){
   //check if other is the same as this
   if(this != &other){
     //if it isn't delete data of current ULListStr
-    this->clear();
+    while(this->size() > 0) this->pop_back();
     //copy data
     this->head_ = other.head_;
     this->tail_ = other.tail_;

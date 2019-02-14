@@ -97,6 +97,7 @@ void test_concat_operator(){
   cout << "b: ";
   print(b);
 
+  //Simple concat
   ULListStr c = a + b;
   cout << "c: ";
   print(c);
@@ -127,8 +128,8 @@ void test_remove_operator(){
 int main(){
   //test_copy_constructor();
   //test_index_access_operator();
-  //test_assignment_operator();
+  test_assignment_operator(); //valgrind error here
   //test_concat_operator();
-  test_remove_operator();
+  //test_remove_operator();
   return 0;
 }
