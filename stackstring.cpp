@@ -21,9 +21,11 @@ void StackString::push(const std::string& val){
 }
 
 const std::string& StackString::top() const{
-  return (this->list_).get(0);
+  std::string* ret = new std::string;
+  (*ret) += this->list_.get(this->list_.size()-1);
+  return *ret;
 }
 
 void StackString::pop(){
-  (this->list_).pop_front();
+  (this->list_).pop_back();
 }

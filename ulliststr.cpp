@@ -263,9 +263,7 @@ ULListStr& ULListStr::operator= (const ULListStr& other){
     //if it isn't delete data of current ULListStr
     while(this->size() > 0) this->pop_back();
     //copy data
-    this->head_ = other.head_;
-    this->tail_ = other.tail_;
-    this->size_ = other.size_;
+    this->appendContents(other);
   }
   return *this;
 }

@@ -12,8 +12,10 @@ elif sys.argv[1] == 'strparse':
     os.system("make stringparser")
 
 if Path("prog").exists():
-
-    os.system("valgrind --leak-check=yes ./prog")
+    args = ""
+    if(sys.argv[1] == "strparse"):
+        args+=" input.txt output.txt"
+    os.system("valgrind --leak-check=yes ./prog" + args)
     # os.system("./prog")
     os.system("rm prog")
 else:

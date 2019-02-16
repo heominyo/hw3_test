@@ -1,0 +1,2 @@
+g++ -g -Wall list_test_2.cpp ulliststr.o -o prog
+valgrind --leak-check=yes ./prog

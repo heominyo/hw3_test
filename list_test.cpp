@@ -56,7 +56,7 @@ void test_index_access_operator(){
 
 void test_assignment_operator(){
   ULListStr list;
-  for(int i = 0;i<10;i++) list.push_back("Hello " + to_string(i));
+  for(int i = 0;i<15;i++) list.push_back("Hello " + to_string(i));
   //basic assignment
   ULListStr a = list;
   ULListStr b = list;
@@ -72,7 +72,7 @@ void test_assignment_operator(){
 
   //non-empty assignment
   ULListStr c;
-  for(int i = 0;i<10;i++) c.push_back("Bye " + to_string(i));
+  for(int i = 0;i<15;i++) c.push_back("Bye " + to_string(i));
   cout << "c: ";
   print(c);
   b = c;
